@@ -1,0 +1,16 @@
+<h1>listing users</h1>
+
+<table class=table>
+  <tbody>
+    <%= for user <- @users do %>
+      <tr>
+        <td>
+          <%= render("user.html", user: user) %>
+        </td>
+        <td>
+          <%= link "view", to: user_path(@conn, :show, user.id) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
