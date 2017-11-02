@@ -1,7 +1,6 @@
 defmodule Rumbl.User do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Rumbl.User
 
 
   schema "users" do
@@ -17,5 +16,23 @@ defmodule Rumbl.User do
     model
     |> cast(params, ~w(name username), [])
     |> validate_length(:username, min: 1, max: 20)
+  end
+
+  def registration_changeset(model, params) do
+    model
+    |> changeset(params)
+    |> cast(params, ~w(password), [])
+    |> validate_length(:password, min: 6, mix: 100)
+    |> put_pass_hash()
+  end
+
+  defp put_pass_hash(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
+        hash_pw = Comeonin.Bcrypt.hashpwsalt(pass)
+        put_change(changeset, :password_hash, hash_pw)
+      _ ->
+        changeset
+    end
   end
 end
