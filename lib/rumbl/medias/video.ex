@@ -21,7 +21,7 @@ defmodule Rumbl.Medias.Video do
   @doc false
   def changeset(%Video{} = video, attrs) do
     video
-    |> cast(attrs, @required_fields ++ @optional_fields)
-    |> validate_required(@required_fields)
+    |> cast(attrs, [:description, :title, :url, :category_id])
+    |> validate_required([:description, :title, :url])
   end
 end
