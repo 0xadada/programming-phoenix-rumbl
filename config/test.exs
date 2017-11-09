@@ -9,6 +9,10 @@ config :rumbl, RumblWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+# Fewer rounds of password hashing during test runs, for speed bump
+config :comeonin, :bcrypt_log_rounds, 4
+config :comonin, :pbkdf2_rounds, 1
+
 # Configure your database
 config :rumbl, Rumbl.Repo,
   adapter: Ecto.Adapters.Postgres,

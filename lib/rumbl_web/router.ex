@@ -20,7 +20,7 @@ defmodule RumblWeb.Router do
     get "/", PageController, :index
     resources "/sessions", SessionController, only: [:new, :create, :delete]
     resources "/users", UserController, only: [:index, :show, :new, :create]
-    resources "/videos", VideoController
+    # resources "/videos", VideoController
   end
 
   scope "/manage", RumblWeb do
