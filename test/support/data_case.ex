@@ -22,6 +22,7 @@ defmodule Rumbl.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Rumbl.DataCase
+      import RumblWeb.TestHelpers
     end
   end
 
@@ -49,5 +50,9 @@ defmodule Rumbl.DataCase do
         String.replace(acc, "%{#{key}}", to_string(value))
       end)
     end)
+  end
+
+  def errors_on_data(changeset, data) do
+    changeset.__struct__.changeset(changeset, data).errors
   end
 end
