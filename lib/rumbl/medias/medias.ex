@@ -45,6 +45,24 @@ defmodule Rumbl.Medias do
 
   ## Examples
 
+      iex> get_video!(user, 123)
+      %Video{}
+
+      iex> get_video!(user, 456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_video!(user, id) do
+    Repo.get_by!(Video, user_id: user.id, id: id)
+  end
+
+  @doc """
+  Gets a single video by id
+
+  Raises `Ecto.NoResultsError` if the Video does not exist.
+
+  ## Examples
+
       iex> get_video!(123)
       %Video{}
 
@@ -52,8 +70,8 @@ defmodule Rumbl.Medias do
       ** (Ecto.NoResultsError)
 
   """
-  def get_video!(user, id) do
-    Repo.get_by!(Video, user_id: user.id, id: id)
+  def get_video_by_id!(id) do
+    Repo.get_by!(Video, id: id)
   end
 
   @doc """
