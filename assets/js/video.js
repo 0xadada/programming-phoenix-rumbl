@@ -20,6 +20,8 @@ let video = {
     let postButton   = document.getElementById('msg-submit');
     let vidChannel   = socket.channel('videos:' + videoId);
 
+    vidChannel.on('ping', ({ count }) => console.info('PING', count));
+
     vidChannel.join()
       .receive('ok', resp => console.info('joined the video channel', resp))
       .receive('error', msg => console.log('join failed', msg));
