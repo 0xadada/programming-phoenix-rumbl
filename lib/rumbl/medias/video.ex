@@ -12,6 +12,7 @@ defmodule Rumbl.Medias.Video do
 
     belongs_to :user, Rumbl.User
     belongs_to :category, Rumbl.Medias.Category
+    has_many :annotations, Rumbl.Medias.Annotation
 
     timestamps()
   end
