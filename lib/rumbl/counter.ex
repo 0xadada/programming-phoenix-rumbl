@@ -16,6 +16,7 @@ defmodule Rumbl.Counter do
 
   # GenServer implementation
   def init(initial_val) do
+    Process.send_after(self, :tick, 1000)
     {:ok, initial_val}
   end
 
@@ -29,5 +30,12 @@ defmodule Rumbl.Counter do
 
   def handle_call(:val, _from, val) do
     {:reply, val, val}
+  end
+
+  def handle_info(:tick, val) when val <= 0, do: raise "boom!"
+  def handle_info(:tick, val) do
+    IO.puts "tick #{val}"
+    Process.send_after(self, :tick, 1000)
+    {:noreply, val - 1}
   end
 end
