@@ -1,3 +1,11 @@
+#---
+# Excerpted from "Programming Phoenix",
+# published by The Pragmatic Bookshelf.
+# Copyrights apply to this code. It may not be used to create training material,
+# courses, books, articles, and the like. Contact us if you are in doubt.
+# We make no guarantees that this code is fit for any purpose.
+# Visit http://www.pragmaticprogrammer.com/titles/phoenix for more book information.
+#---
 # This file is responsible for configuring your application
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
@@ -8,15 +16,15 @@ use Mix.Config
 # if you want to provide default values for your application for
 # 3rd-party users, it should be done in your "mix.exs" file.
 
-# You can configure your application as:
+# You can configure for your application as:
 #
 #     config :info_sys, key: :value
 #
-# and access this configuration in your application as:
+# And access this configuration in your application as:
 #
 #     Application.get_env(:info_sys, :key)
 #
-# You can also configure a 3rd-party app:
+# Or configure a 3rd-party app:
 #
 #     config :logger, level: :info
 #
@@ -27,3 +35,4 @@ use Mix.Config
 # Configuration from the imported file will override the ones defined
 # here (which is why it is important to import them last).
 #
+import_config "#{Mix.env}.exs"

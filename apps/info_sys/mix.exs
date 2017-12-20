@@ -1,32 +1,41 @@
-defmodule InfoSys.MixProject do
+defmodule InfoSys.Mixfile do
   use Mix.Project
 
   def project do
-    [
-      app: :info_sys,
-      version: "0.1.0",
-      build_path: "../../_build",
-      config_path: "../../config/config.exs",
-      deps_path: "../../deps",
-      lockfile: "../../mix.lock",
-      elixir: "~> 1.6-dev",
-      start_permanent: Mix.env() == :prod,
-      deps: deps()
-    ]
+    [app: :info_sys,
+     version: "0.0.1",
+     build_path: "../../_build",
+     config_path: "../../config/config.exs",
+     deps_path: "../../deps",
+     lockfile: "../../mix.lock",
+     elixir: "~> 1.2-rc",
+     build_embedded: Mix.env == :prod,
+     start_permanent: Mix.env == :prod,
+     deps: deps()]
   end
 
-  # Run "mix help compile.app" to learn about applications.
+  # Configuration for the OTP application
+  #
+  # Type "mix help compile.app" for more information
   def application do
-    [
-      extra_applications: [:logger],
-      mod: {InfoSys.Application, []}
-    ]
+    [applications: [:logger],
+     mod: {InfoSys, []}]
   end
 
-  # Run "mix help deps" to learn about dependencies.
+  # Dependencies can be Hex packages:
+  #
+  #   {:mydep, "~> 0.3.0"}
+  #
+  # Or git/path repositories:
+  #
+  #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}
+  #
+  # To depend on another app inside the umbrella:
+  #
+  #   {:myapp, in_umbrella: true}
+  #
+  # Type "mix help deps" for more examples and options
   defp deps do
-    [
-      {:sweet_xml, "~> 0.6.5"}
-    ]
+    [{:sweet_xml, "~> 0.5.0"}]
   end
 end

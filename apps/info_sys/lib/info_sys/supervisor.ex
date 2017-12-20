@@ -6,12 +6,10 @@ defmodule InfoSys.Supervisor do
   end
 
   def init(_opts) do
-    # child spec
     children = [
       worker(InfoSys, [], restart: :temporary)
     ]
 
-    # start all children
     supervise(children, strategy: :simple_one_for_one)
   end
 end

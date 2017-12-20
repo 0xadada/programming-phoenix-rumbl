@@ -1,22 +1,20 @@
 defmodule InfoSys do
-  # list of all backends supported
+  use Application
+
+  def start(_type, _args) do
+    InfoSys.Supervisor.start_link()
+  end
+
   @backends [InfoSys.Wolfram]
 
-  # Result is a search result
   defmodule Result do
     defstruct score: 0, text: nil, url: nil, backend: nil
   end
 
-  # proxy to each backend service implementation start_link
-  # InfoSys is a simple_one_for_one worker with its own start_link, but it has
-  # been reimplemented to act as a proxy to call start_link of each backend
-  # service provider
   def start_link(backend, query, query_ref, owner, limit) do
     backend.start_link(query, query_ref, owner, limit)
   end
 
-  # map over all backend service providers, spawning a query and returning
-  # a reference `ref` to that query. We wait for the `ref` to return results.
   def compute(query, opts \\ []) do
     limit = opts[:limit] || 10
     backends = opts[:backends] || @backends
@@ -62,6 +60,7 @@ defmodule InfoSys do
         await_result(tail, acc, 0)
     end
   end
+
   defp await_result([], acc, _) do
     acc
   end
@@ -74,7 +73,7 @@ defmodule InfoSys do
   defp cleanup(timer) do
     :erlang.cancel_timer(timer)
     receive do
-      :timeout -> :ok
+      :timedout -> :ok
     after
       0 -> :ok
     end
